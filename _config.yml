@@ -1,0 +1,21 @@
+# Dependencies
+markdown:         redcarpet
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+excerpt_separator: <!--more-->
+
+# Setup
+title:            Pedro Araujo
+tagline:          'Web Developer addicted'
+description:      'Coisas sobre o mundo web, carreira e um pouco de javascript'
+url:              http://pedrotcaraujo.com
+baseurl:          /
+
+author:
+  name:           'Pedro Araujo'
+  url:            https://twitter.com/pedrotcaraujo
+
+paginate:         5

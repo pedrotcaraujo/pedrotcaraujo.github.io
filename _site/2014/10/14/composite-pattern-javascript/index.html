@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Explorando o Composite pattern JavaScript &middot; Pedro Araujo
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          Pedro Araujo
+        </a>
+      </h1>
+      <p class="lead">Coisas sobre o mundo web, carreira e um pouco de javascript</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Início</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">Sobre</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+    </nav>
+
+    <p>&copy; 2014. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Explorando o Composite pattern JavaScript</h1>
+  <span class="post-date">14 Oct 2014</span>
+  <p>Design Patterns é um assunto bem comum em todas as linguagens de programação, é o mais importante assunto quando se trata em manutenibilidade de código. Um pattern é uma solução reutilizável que pode ser aplicada em um projeto desenvolvimento de software e, hoje vamos explorar o <strong>Composite</strong> pattern com implementação JavaScript.</p>
+
+<!--more-->
+
+<p>Composite pattern diz que um grupo de objetos pode ser tratado da mesma maneira que um objeto individual desse grupo.</p>
+
+<p>Um uso bem comum de Composite Pattern que você provavelmente já tenha visto é o sistema de diretórios de um Sistema Operacional, que utiliza estrutura de dados em árvore (considere que temos uma pasta, que dentro dessa pasta temos várias outras pastas, e que dentro de cada uma dessas outras pastas temos mais algumas pastas, e assim por diante).</p>
+
+<p>Nesse modelo, temos “N” objetos que possui &quot;N&quot; filhos que também pode ter mais &quot;N&quot; filhos, e etc. Mas a quantidade de objetos não importa, porque a implementação é a mesma para todos eles.</p>
+
+<p>Ok, vamos ver isso melhor na prática.</p>
+
+<h3>Exemplo: Construindo uma cidade com Composite Pattern</h3>
+
+<p>Vamos colocar a mão na massa e criar nosso proprio exemplo modificando um pouco o modelo apresentado à cima mas ainda seguindo a estrutura em árvore.</p>
+
+<p>No nosso exemplo vamos construir duas cidades, que possuem bairros e que por sua vez possuem algumas casas (lembra da estrutura em árvore). Algo bem simples e que vai ficar parecido como isso:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">| cities
+|
+|-- São Paulo/
+|   |-- Liberdade
+|       |-- Casa 1
+|       |-- Casa 2
+|   |-- Ipiranga
+|       |-- Casa 3
+|
+|-- Rio de Janeiro/
+|   |-- Leblon
+|       |-- Casa 4
+|   |-- Lapa
+|       |-- Casa 5
+|       |-- Casa 6
+|
+</code></pre></div>
+<p>O objeto irá possuir os seguintes métodos específicos do nosso composite:</p>
+
+<ul>
+<li><strong>add</strong>: adiciona um novo filho para o objeto;</li>
+<li><strong>remove</strong>: remove um determinado filho do objeto;</li>
+<li><strong>getChild</strong>: retorna um filho do objeto;</li>
+</ul>
+
+<p>Método auxiliar:</p>
+
+<ul>
+<li><strong>getElement</strong>: retorna o elemento HTML do objeto específico;</li>
+</ul>
+
+<h4>Criamos o objeto cidade que terá o formato composite</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">City</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">className</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">h2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;h2&#39;</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">className</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="nx">className</span><span class="p">;</span>
+
+    <span class="nx">h2</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">title</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">h2</span><span class="p">);</span>
+
+<span class="p">}</span>
+
+<span class="nx">City</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">add</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">getElement</span><span class="p">());</span>
+    <span class="p">},</span>
+
+    <span class="nx">remove</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>    
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">node</span><span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getChild</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">node</span> <span class="o">==</span> <span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">child</span><span class="p">.</span><span class="nx">getElement</span><span class="p">());</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getChild</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">},</span>
+
+    <span class="nx">getElement</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4>Instanciamos os objetos e montamos a estrutura</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">cities</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;cities&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">saoPaulo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;São Paulo&#39;</span><span class="p">,</span> <span class="s1">&#39;sao-paulo&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">rioDeJaneiro</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Rio de Janeiro&#39;</span><span class="p">,</span> <span class="s1">&#39;rio-de-janeiro&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">liberdade</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Liberdade&#39;</span><span class="p">,</span> <span class="s1">&#39;liberdade&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ipiranga</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Ipiranga&#39;</span><span class="p">,</span> <span class="s1">&#39;ipiranga&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">lapa</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Lapa&#39;</span><span class="p">,</span> <span class="s1">&#39;lapa&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">leblon</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Leblon&#39;</span><span class="p">,</span> <span class="s1">&#39;leblon&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 1&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-1&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 2&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-2&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 3&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-3&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa4</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 4&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-4&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa5</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 5&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-5&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casa6</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa 6&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-6&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">casaRemover7</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">City</span><span class="p">(</span><span class="s1">&#39;Casa remover 7&#39;</span><span class="p">,</span> <span class="s1">&#39;casa-remover-7&#39;</span><span class="p">,</span> <span class="s1">&#39;composite-house&#39;</span><span class="p">);</span>
+
+<span class="nx">liberdade</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa1</span><span class="p">);</span>
+<span class="nx">liberdade</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa2</span><span class="p">);</span>
+
+<span class="nx">ipiranga</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa3</span><span class="p">);</span>
+<span class="nx">ipiranga</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casaRemover7</span><span class="p">);</span>
+
+<span class="nx">ipiranga</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">casaRemover7</span><span class="p">);</span> <span class="c1">// Removido</span>
+
+<span class="nx">lapa</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa4</span><span class="p">);</span>
+
+<span class="nx">leblon</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa5</span><span class="p">);</span>
+<span class="nx">leblon</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">casa6</span><span class="p">);</span>
+
+<span class="nx">saoPaulo</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">liberdade</span><span class="p">);</span>
+<span class="nx">saoPaulo</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">ipiranga</span><span class="p">);</span>
+
+<span class="nx">rioDeJaneiro</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">lapa</span><span class="p">);</span>
+<span class="nx">rioDeJaneiro</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">leblon</span><span class="p">);</span>
+
+<span class="nx">cities</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">saoPaulo</span><span class="p">);</span>
+<span class="nx">cities</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">rioDeJaneiro</span><span class="p">);</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">cities</span><span class="p">.</span><span class="nx">getElement</span><span class="p">());</span>
+</code></pre></div>
+<p>Se preferir, aqui está o <a href="http://pedrotcaraujo.github.io/composite-pattern-js">demo</a>, de como ficou o exemplo funcionando.</p>
+
+<p>Composite pattern é interessante quando temos uma coleção de objetos que possuem o mesmo tratamento, é um ótimo pattern e bastante usado pelos desenvolvedores.</p>
+
+<p>Espero que tenha gostado, qualquer dúvida, sugestão, crítica, fique a vontade para deixar seu comentário. Até a próxima :D</p>
+
+</div>
+
+<div class="related">
+  <h2>Posts Relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/10/13/first-blood/">
+            First Blood
+            <small>13 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'pedrotcaraujo'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                    <div class="footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://yui.yahooapis.com/3.14.1/build/yui/yui.js"></script>
+        <script>
+          YUI().use('node-base', 'node-event-delegate', function (Y) {
+              // This just makes sure that the href="#" attached to the <a> elements
+              // don't scroll you back up the page.
+              Y.one('body').delegate('click', function (e) {
+                  e.preventDefault();
+              }, 'a[href="#"]');
+          });
+        </script>
+
+    </div>
+
+  </body>
+</html>
