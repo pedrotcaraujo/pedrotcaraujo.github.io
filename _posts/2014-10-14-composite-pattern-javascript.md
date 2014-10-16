@@ -51,7 +51,7 @@ Método auxiliar:
 * **getElement**: retorna o elemento HTML do objeto específico;
 
 
-####Criamos o objeto cidade que terá o formato composite
+####Criamos o objeto "Cidade" que terá o formato composite
 ```javascript 
 var City = function (title, id, className) {
     this.children = [];
