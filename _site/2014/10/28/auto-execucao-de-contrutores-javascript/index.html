@@ -11,7 +11,7 @@
 
   <title>
     
-      First Blood &middot; Pedro Araujo
+      Auto-execução de contrutores usando keyword 'new' &middot; Pedro Araujo
     
   </title>
 
@@ -71,23 +71,28 @@
 
     <div class="content container">
       <div class="post">
-  <h1 class="post-title">First Blood</h1>
-  <span class="post-date">13 Oct 2014</span>
-  <p>Pessoal, é com muito orgulho que hoje estou aqui lançando meu novo site e agora com foco especialmente no meu blog. Pois é, a partir de agora gostaria de freqüentemente postar algumas coisas sobre a web, minha carreira profissional e bastante sobre JavaScript.</p>
+  <h1 class="post-title">Auto-execução de contrutores usando keyword 'new'</h1>
+  <span class="post-date">28 Oct 2014</span>
+  <p>Existem diversas coisas em JavaScript que deixam a gente de boquiaberta, e diria que isso é um dos motivos que aumenta minha paixão pela linguagem.</p>
 
 <!--more-->
 
-<p>Aproveitando o embalo do primeiro post (Fist Blood) gostaria também de falar da tecnologia usada para desenvolver esse blog.</p>
+<p>Bom, para quem trabalha com funções JavaScript, ou melhor, <code>classes</code>, está bastante familiarizado com a keyword <code>new</code>. Com a keyword <code>new</code> você pode passar argumentos na chamada da função. Mas você sabia que caso você tenha argumentos, podemos não usar parênteses para tudo?</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">MinhaClasse</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Inicializada!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
 
-<p>Este blog foi inteiramente desenvolvido por um gerador de sites estáticos, que no meu caso é o <a href="http://jekyllrb.com">Jekyll</a>, para quem não conhece ele basicamente transforma o seu texto simples em um maravilhoso site estático, usando somente HTML e CSS, sem linguagem back-end e sem database, simples assim.</p>
+<span class="kd">var</span> <span class="nx">instancia</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MinhaClasse</span><span class="p">;</span>
 
-<p>Para seu funcionamento, ele usa (como disse) somente HTML, CSS e o querido <a href="http://pt.wikipedia.org/wiki/Markdown">MARKDOWN</a> para escrever os posts. Se quiser entender melhor como o <a href="http://jekyllrb.com">Jekyll</a> funciona, recomendo dar uma olhada no site ou também você pode ir lá no <a href="http://tableless.com.br/jekyll-servindo-sites-estaticos/">Tableless</a> que tem um post bem legal falando dele.</p>
+<span class="c1">// &gt;&gt; &quot;Inicializada!&quot;</span>
+</code></pre></div>
+<p>Ok, é uma coisa um tanto quanto inútil, mas é um truque do JavaScript que podemos guardar com facilidade na nossa cabeça =D.</p>
 
-<p>Existem alguns outros geradores de sites estáticos no mercado como, <a href="https://docpad.org/">DOCPAD</a>, <a href="http://middlemanapp.com/">Middleman</a>, <a href="http://wintersmith.io">Wintersmith</a>, <a href="https://github.com/pinceladasdaweb/Static-Site-Generators">etc</a>. Alguns até parecem bem legais, porém escolhi o <a href="http://jekyllrb.com">Jekyll</a> por motivos do qual não sei =D.</p>
+<p>Richard Ayotte criou até um teste de performance no jsPerf e detectou uma micro performance em browser que utilizam v8. Você pode conferir <a href="http://jsperf.com/new-with-and-without-parens">aqui</a></p>
 
-<p>Há também uma série de templates prontos que a galera monta por aí, no meu caso utilizei o <a href="http://getpoole.com/">poole</a> em conjunto com o <a href="https://github.com/poole/hyde">hyde</a> para esse blog, porém pretendo em breve, dar uma mudada no visual para deixar mais com a minha cara, mas pra quem quer uma solução rápida fica aí a dica.</p>
+<p>Simples assim, qualquer coisa não esqueçam de usar os comentários.</p>
 
-<p>Obrigado pela visita, espero que divirta-se!</p>
+<p>fonte: Inspirado e traduzido <a href="http://davidwalsh.name/javascript-constructor-autoexecution-keyword">DavidWalsh</a></p>
 
 </div>
 
@@ -97,18 +102,18 @@
     
       <li>
         <h3>
-          <a href="/2014/10/28/auto-execucao-de-contrutores-javascript/">
-            Auto-execução de contrutores usando keyword 'new'
-            <small>28 Oct 2014</small>
+          <a href="/2014/10/14/composite-pattern-javascript/">
+            Explorando o Composite pattern JavaScript
+            <small>14 Oct 2014</small>
           </a>
         </h3>
       </li>
     
       <li>
         <h3>
-          <a href="/2014/10/14/composite-pattern-javascript/">
-            Explorando o Composite pattern JavaScript
-            <small>14 Oct 2014</small>
+          <a href="/2014/10/13/first-blood/">
+            First Blood
+            <small>13 Oct 2014</small>
           </a>
         </h3>
       </li>

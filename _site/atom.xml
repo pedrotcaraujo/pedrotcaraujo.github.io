@@ -4,13 +4,41 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-10-16T08:57:06-03:00</updated>
+ <updated>2014-10-28T15:17:13-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Auto-execução de contrutores usando keyword 'new'</title>
+   <link href="http://pedrotcaraujo.com/2014/10/28/auto-execucao-de-contrutores-javascript/"/>
+   <updated>2014-10-28T00:00:00-02:00</updated>
+   <id>http://pedrotcaraujo.com/2014/10/28/auto-execucao-de-contrutores-javascript</id>
+   <content type="html">&lt;p&gt;Existem diversas coisas em JavaScript que deixam a gente de boquiaberta, e diria que isso é um dos motivos que aumenta minha paixão pela linguagem.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Bom, para quem trabalha com funções JavaScript, ou melhor, &lt;code&gt;classes&lt;/code&gt;, está bastante familiarizado com a keyword &lt;code&gt;new&lt;/code&gt;. Com a keyword &lt;code&gt;new&lt;/code&gt; você pode passar argumentos na chamada da função. Mas você sabia que caso você tenha argumentos, podemos não usar parênteses para tudo?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MinhaClasse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Inicializada!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instancia&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MinhaClasse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// &amp;gt;&amp;gt; &amp;quot;Inicializada!&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ok, é uma coisa um tanto quanto inútil, mas é um truque do JavaScript que podemos guardar com facilidade na nossa cabeça =D.&lt;/p&gt;
+
+&lt;p&gt;Richard Ayotte criou até um teste de performance no jsPerf e detectou uma micro performance em browser que utilizam v8. Você pode conferir &lt;a href=&quot;http://jsperf.com/new-with-and-without-parens&quot;&gt;aqui&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Simples assim, qualquer coisa não esqueçam de usar os comentários.&lt;/p&gt;
+
+&lt;p&gt;fonte: Inspirado e traduzido &lt;a href=&quot;http://davidwalsh.name/javascript-constructor-autoexecution-keyword&quot;&gt;DavidWalsh&lt;/a&gt;&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Explorando o Composite pattern JavaScript</title>
