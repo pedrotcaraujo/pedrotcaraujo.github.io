@@ -7,7 +7,7 @@ Existem diversas coisas em JavaScript que deixam a gente de boquiaberta, e diria
 
 <!--more-->
 
-Bom, para quem trabalha com funções JavaScript, ou melhor, ```classes```, está bastante familiarizado com a keyword ```new```. Com a keyword ```new``` você pode passar argumentos na chamada da função. Mas você sabia que caso você tenha argumentos, podemos não usar parênteses para tudo?
+Bom, para quem trabalha com funções JavaScript, ou melhor, ```classes```, está bastante familiarizado com a keyword ```new```. Com a keyword ```new``` você pode passar argumentos na chamada da função. Mas você sabia que caso você não tenha argumentos, podemos não usar parênteses para tudo?
 
 ```javascript 
 function MinhaClasse() {

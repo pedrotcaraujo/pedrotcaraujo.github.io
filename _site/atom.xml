@@ -4,7 +4,7 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-10-28T15:17:13-02:00</updated>
+ <updated>2014-10-28T16:21:00-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
@@ -21,7 +21,7 @@
 
 &lt;!--more--&gt;
 
-&lt;p&gt;Bom, para quem trabalha com funções JavaScript, ou melhor, &lt;code&gt;classes&lt;/code&gt;, está bastante familiarizado com a keyword &lt;code&gt;new&lt;/code&gt;. Com a keyword &lt;code&gt;new&lt;/code&gt; você pode passar argumentos na chamada da função. Mas você sabia que caso você tenha argumentos, podemos não usar parênteses para tudo?&lt;/p&gt;
+&lt;p&gt;Bom, para quem trabalha com funções JavaScript, ou melhor, &lt;code&gt;classes&lt;/code&gt;, está bastante familiarizado com a keyword &lt;code&gt;new&lt;/code&gt;. Com a keyword &lt;code&gt;new&lt;/code&gt; você pode passar argumentos na chamada da função. Mas você sabia que caso você não tenha argumentos, podemos não usar parênteses para tudo?&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MinhaClasse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Inicializada!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
