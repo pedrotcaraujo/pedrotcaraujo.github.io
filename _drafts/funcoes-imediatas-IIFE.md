@@ -31,6 +31,6 @@ adder("Olá"); // Olá
 adder("Mundo!"); // Olá Mundo!
 ```
 
-Criamos uma variável como string dentro do escopo da função imediata e depois retornamos uma função que concatena a string com o valor passado pela função.
+Em nosso exemplo, criamos uma função imediata que retorna uma função que concatena uma string (```str```). Note que a variável criada ```str``` está fora do escopo da função retornada, ou seja, não estamos declarando a variavel ```str``` sempre que invocamos ```adder```, pois ```str``` está no escopo da função imediata.
 
 Ok, entender seu proposito e o que ela pode nos ajudar até parece fácil, dificil é entender sua sintaxe.
