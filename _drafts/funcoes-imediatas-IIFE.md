@@ -21,16 +21,16 @@ Tenha em mente que variáveis em Javascript têm como escopo a função da qual 
 
 ```javascript
 var adder = (function() {
-	var str = "";
+	var myPhrase = "";
 	return function(x) {		
-		return str = !!str ?  str.concat(" ", x) : str.concat(x);
+		return myPhrase = !!myPhrase ?  myPhrase.concat(" ", x) : myPhrase.concat(x);
 	}
 })()
 
-adder("Olá"); // Olá
-adder("Mundo!"); // Olá Mundo!
+adder("Olá"); // "Olá"
+adder("Mundo!"); // "Olá Mundo!"
 ```
 
-Em nosso exemplo, criamos uma função imediata que retorna uma função que concatena uma string (```str```). Note que a variável criada ```str``` está fora do escopo da função retornada, ou seja, não estamos declarando a variavel ```str``` sempre que invocamos ```adder```, pois ```str``` está no escopo da função imediata.
+Em nosso exemplo, criamos uma função anônima imediata que retorna uma função que concatena uma string na variavel chamada ```myPhrase```. Note que a variável criada ```myPhrase``` está no escopo da IIFE e não na função retornada. Portanto o ```myPhrase``` não é definido toda vez que invocamos a função ```adder```, e então conseguimos nosso objetivo de concatenar nossas strings. Mas, o mais importante disso tudo é, que o ```myPhrase``` está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.
 
 Ok, entender seu proposito e o que ela pode nos ajudar até parece fácil, dificil é entender sua sintaxe.

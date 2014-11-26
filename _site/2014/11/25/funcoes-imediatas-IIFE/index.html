@@ -72,7 +72,7 @@
     <div class="content container">
       <div class="post">
   <h1 class="post-title">Funções imediatas (IIFE)</h1>
-  <span class="post-date">22 Nov 2014</span>
+  <span class="post-date">25 Nov 2014</span>
   <p>Há tempos venho aprendendo e tentando entender como alguns truques em Javascript funcionam, o <strong>IIFE</strong> é um desses caras que muita vezes usamos e não sabemos o que acontece realmente. Esse trecho de código é bastante usado no Javascript funcional, resolve alguns problemas e você pode vê-lo a seguir...</p>
 
 <!--more-->
@@ -84,24 +84,18 @@
 
 <p>Tenha em mente que variáveis em Javascript têm como escopo a função da qual elas foram definidas (podem ser acessadas somente dentro da função, jamais fora). Ao criar uma função anônima com exeucação imediata, podemos criar um escopo temporario para nossas funções e variaveis. Com isso evitamos poluição no nosso escopo global e possiveis conflitos de variaveis ou funções com o mesmo nome.</p>
 
-<h4>Exemplo: Considere o código a seguir usando jQuery</h4>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;body&gt;</span>
-    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>Clique aqui!<span class="nt">&lt;/a&gt;</span>
+<h4>Exemplo: Considere o código a seguir</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">adder</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">myPhrase</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>        
+        <span class="k">return</span> <span class="nx">myPhrase</span> <span class="o">=</span> <span class="o">!!</span><span class="nx">myPhrase</span> <span class="o">?</span>  <span class="nx">myPhrase</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span> <span class="o">:</span> <span class="nx">myPhrase</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})()</span>
 
-    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-
-        <span class="nx">$</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Não sou jQuery mais&#39;</span><span class="p">)</span> <span class="p">}</span>
-
-        <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                <span class="nx">$</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;clicado&#39;</span><span class="p">);</span>
-            <span class="p">})</span>
-        <span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
-
-    <span class="nt">&lt;/script&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
+<span class="nx">adder</span><span class="p">(</span><span class="s2">&quot;Olá&quot;</span><span class="p">);</span> <span class="c1">// &quot;Olá&quot;</span>
+<span class="nx">adder</span><span class="p">(</span><span class="s2">&quot;Mundo!&quot;</span><span class="p">);</span> <span class="c1">// &quot;Olá Mundo!&quot;</span>
 </code></pre></div>
-<p>Redefinimos <code>$</code> como algo diferente de jQuery e a função imediata transmite <code>jQuery</code> como um único parametro nomeado de <code>$</code>. Dentro da função esse parametro sobrescreve qualquer uso de <code>$</code> em um nivel de escopo superior.</p>
+<p>Em nosso exemplo, criamos uma função anônima imediata que retorna uma função que concatena uma string na variavel chamada <code>myPhrase</code>. Note que a variável criada <code>myPhrase</code> está no escopo da IIFE e não na função retornada. Portanto o <code>myPhrase</code> não é definido toda vez que invocamos a função <code>adder</code>, e então conseguimos nosso objetivo de concatenar nossas strings. Mas, o mais importante disso tudo é, que o <code>myPhrase</code> está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.</p>
 
 <p>Ok, entender seu proposito e o que ela pode nos ajudar até parece fácil, dificil é entender sua sintaxe.</p>
 
