@@ -4,7 +4,7 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-12-01T18:25:06-02:00</updated>
+ <updated>2014-12-01T18:28:27-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
@@ -67,7 +67,7 @@
 
 &lt;p&gt;No nosso exemplo, se por um lado o parser identifica o keyword &lt;code&gt;function&lt;/code&gt; como uma declaração, por outro ele reconhece o parênteses &lt;code&gt;()&lt;/code&gt; como um grupo de operadores e quando utilizamos sem uma expressão dentro temos um erro.&lt;/p&gt;
 
-&lt;p&gt;Mas se transformarmos uma função em &lt;strong&gt;Function Expression&lt;/strong&gt; e em seguida um conjunto de parênteses esses mesmos parênteses se torna uma invocação de uma função onde podemos passar parâmetros sem problemas, tendo outro comportamento. Como fazer uma function se tornar uma expressão? Apenas inserimos ela dentro de um grupo de operadores.&lt;/p&gt;
+&lt;p&gt;Mas se transformarmos uma função em &lt;strong&gt;Function Expression&lt;/strong&gt; e em seguida um conjunto de parênteses &lt;code&gt;()&lt;/code&gt;, esses mesmos parênteses se torna uma invocação de uma função onde podemos passar parâmetros sem problemas, tendo outro comportamento. Como fazer uma function se tornar uma expressão? Apenas inserimos ela dentro de um grupo de operadores.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// Agora com função anônima&lt;/span&gt;

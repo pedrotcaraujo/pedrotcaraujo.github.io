@@ -65,7 +65,7 @@ De acordo com a norma do **ExpressionStatement** (estado de expressão), não po
 
 No nosso exemplo, se por um lado o parser identifica o keyword ```function``` como uma declaração, por outro ele reconhece o parênteses ```()``` como um grupo de operadores e quando utilizamos sem uma expressão dentro temos um erro.
 
-Mas se transformarmos uma função em **Function Expression** e em seguida um conjunto de parênteses esses mesmos parênteses se torna uma invocação de uma função onde podemos passar parâmetros sem problemas, tendo outro comportamento. Como fazer uma function se tornar uma expressão? Apenas inserimos ela dentro de um grupo de operadores.
+Mas se transformarmos uma função em **Function Expression** e em seguida um conjunto de parênteses ```()```, esses mesmos parênteses se torna uma invocação de uma função onde podemos passar parâmetros sem problemas, tendo outro comportamento. Como fazer uma function se tornar uma expressão? Apenas inserimos ela dentro de um grupo de operadores.
 
 ```javascript
 (function doSomething() { /* codigo */ })(); // undefined
