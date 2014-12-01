@@ -31,6 +31,16 @@ adder("Olá"); // "Olá"
 adder("Mundo!"); // "Olá Mundo!"
 ```
 
-Em nosso exemplo, criamos uma função anônima imediata que retorna uma função que concatena uma string na variavel chamada ```myPhrase```. Note que a variável criada ```myPhrase``` está no escopo da IIFE e não na função retornada. Portanto o ```myPhrase``` não é definido toda vez que invocamos a função ```adder```, e então conseguimos nosso objetivo de concatenar nossas strings. Mas, o mais importante disso tudo é, que o ```myPhrase``` está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.
+Em nosso exemplo, criamos uma função anônima imediata que retorna uma função que concatena uma string na variavel chamada ```myPhrase```. Note que a variável criada ```myPhrase``` está no escopo da IIFE e não na função retornada. Portanto o ```myPhrase``` não é definido toda vez que invocamos a função ```adder```. Mas, o mais importante disso tudo é, que o ```myPhrase``` está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.
 
-Ok, entender seu proposito e o que ela pode nos ajudar até parece fácil, dificil é entender sua sintaxe.
+Ok, agora que vimos como funciona uma IIFE, vamos entender sua sintaxe.
+
+### Sintaxe da IIFE
+
+Vamos nos atentar no primeiro conjunto de parenteses.
+
+```javascript
+(...)()
+```
+
+É confuso tentar entender a sintaxe de uma IIFE que possui parênteses com funções tão diferentes.
