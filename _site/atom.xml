@@ -4,7 +4,7 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-12-01T18:12:34-02:00</updated>
+ <updated>2014-12-01T18:23:42-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
@@ -100,7 +100,6 @@
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife&quot;&gt;IIFE&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses&quot;&gt;Question about surroundding parentheses&lt;/a&gt;;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;http://www.bryanbraun.com/2014/11/27/every-possible-way-to-define-a-javascript-function&quot;&gt;Every possible way to definea javascript function&lt;/a&gt;;&lt;/li&gt;
 &lt;/ul&gt;
 

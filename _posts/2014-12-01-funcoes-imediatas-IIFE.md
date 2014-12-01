@@ -118,7 +118,6 @@ Economizamos um byte transformando para Function Expression sem usar o grupo de 
 Para ir mais além, segue algumas referências:
 
 * [IIFE](http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife);
-* [Question about surroundding parentheses](http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses);
 * [Every possible way to definea javascript function](http://www.bryanbraun.com/2014/11/27/every-possible-way-to-define-a-javascript-function);
 
 Espero ter ajudado! Dúvidas, sugestões, críticas, só comentar logo abaixo.
