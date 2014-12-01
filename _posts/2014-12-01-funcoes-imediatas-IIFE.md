@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Funções imediatas (IIFE)
+title: Funções imediatas JavaScript (IIFE)
 ---
 
 Há tempos venho aprendendo e tentando entender como alguns truques em Javascript funcionam, o **IIFE** é um desses caras que muita vezes usamos e não sabemos o que acontece realmente. Esse trecho de código é bastante usado no Javascript funcional, resolve alguns problemas e você pode vê-lo a seguir.

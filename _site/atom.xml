@@ -4,7 +4,7 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-11-25T23:51:46-02:00</updated>
+ <updated>2014-12-01T18:12:34-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
@@ -13,35 +13,98 @@
 
  
  <entry>
-   <title>Funções imediatas (IIFE)</title>
-   <link href="http://pedrotcaraujo.com/2014/11/25/funcoes-imediatas-IIFE/"/>
-   <updated>2014-11-25T23:51:46-02:00</updated>
-   <id>http://pedrotcaraujo.com/2014/11/25/funcoes-imediatas-IIFE</id>
-   <content type="html">&lt;p&gt;Há tempos venho aprendendo e tentando entender como alguns truques em Javascript funcionam, o &lt;strong&gt;IIFE&lt;/strong&gt; é um desses caras que muita vezes usamos e não sabemos o que acontece realmente. Esse trecho de código é bastante usado no Javascript funcional, resolve alguns problemas e você pode vê-lo a seguir...&lt;/p&gt;
+   <title>Funções imediatas JavaScript (IIFE)</title>
+   <link href="http://pedrotcaraujo.com/2014/12/01/funcoes-imediatas-IIFE/"/>
+   <updated>2014-12-01T00:00:00-02:00</updated>
+   <id>http://pedrotcaraujo.com/2014/12/01/funcoes-imediatas-IIFE</id>
+   <content type="html">&lt;p&gt;Há tempos venho aprendendo e tentando entender como alguns truques em Javascript funcionam, o &lt;strong&gt;IIFE&lt;/strong&gt; é um desses caras que muita vezes usamos e não sabemos o que acontece realmente. Esse trecho de código é bastante usado no Javascript funcional, resolve alguns problemas e você pode vê-lo a seguir.&lt;/p&gt;
 
 &lt;!--more--&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){})()&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){})();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;O &lt;strong&gt;IIFE significa &amp;quot;Immediately-invoked function expression&amp;quot;&lt;/strong&gt;, ou então podemos chamar de função imediata. Como o proprio nome diz, ela executa a função imediatamente depois que criada, legal, não? Mas por que usar?&lt;/p&gt;
+&lt;p&gt;O &lt;strong&gt;IIFE significa &amp;quot;Immediately-invoked function expression&amp;quot;&lt;/strong&gt;, ou então podemos chamar de função imediata. Como o próprio nome diz, ela executa a função imediatamente depois que criada, mas por que usar?&lt;/p&gt;
 
 &lt;h3&gt;Por que usar funções imediatas?&lt;/h3&gt;
 
-&lt;p&gt;Tenha em mente que variáveis em Javascript têm como escopo a função da qual elas foram definidas (podem ser acessadas somente dentro da função, jamais fora). Ao criar uma função anônima com exeucação imediata, podemos criar um escopo temporario para nossas funções e variaveis. Com isso evitamos poluição no nosso escopo global e possiveis conflitos de variaveis ou funções com o mesmo nome.&lt;/p&gt;
+&lt;p&gt;Encapsulamento! Tenha em mente que variáveis em Javascript têm como escopo a função da qual elas foram definidas (podem ser acessadas somente dentro da função, jamais fora). Ao criar uma função anônima com execução imediata, podemos criar um escopo temporário para nossas funções e variáveis. Com isso evitamos poluição no nosso escopo global e possíveis conflitos de variáveis ou funções com o mesmo nome.&lt;/p&gt;
 
 &lt;h4&gt;Exemplo: Considere o código a seguir&lt;/h4&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;adder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;        
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt;  &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 
+            &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;})()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;adder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Olá&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;Olá&amp;quot;&lt;/span&gt;
 &lt;span class=&quot;nx&quot;&gt;adder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;Mundo!&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// &amp;quot;Olá Mundo!&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Em nosso exemplo, criamos uma função anônima imediata que retorna uma função que concatena uma string na variavel chamada &lt;code&gt;myPhrase&lt;/code&gt;. Note que a variável criada &lt;code&gt;myPhrase&lt;/code&gt; está no escopo da IIFE e não na função retornada. Portanto o &lt;code&gt;myPhrase&lt;/code&gt; não é definido toda vez que invocamos a função &lt;code&gt;adder&lt;/code&gt;, e então conseguimos nosso objetivo de concatenar nossas strings. Mas, o mais importante disso tudo é, que o &lt;code&gt;myPhrase&lt;/code&gt; está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.&lt;/p&gt;
 
-&lt;p&gt;Ok, entender seu proposito e o que ela pode nos ajudar até parece fácil, dificil é entender sua sintaxe.&lt;/p&gt;
+&lt;span class=&quot;nx&quot;&gt;myPhrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// myPhrase is not defined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Em nosso exemplo, criamos uma &lt;strong&gt;função anônima imediata&lt;/strong&gt; que retorna uma outra função que concatena uma string na variável chamada &lt;code&gt;myPhrase&lt;/code&gt;. Note que a variável criada &lt;code&gt;myPhrase&lt;/code&gt; está no escopo da &lt;strong&gt;IIFE&lt;/strong&gt; e não na função retornada. Portanto o &lt;code&gt;myPhrase&lt;/code&gt; não é definido toda vez que invocamos a função &lt;code&gt;adder&lt;/code&gt;. Mas, o mais importante disso tudo é, que o &lt;code&gt;myPhrase&lt;/code&gt; está limitado a escopo da função anônima imediata, não permitindo o seu acesso direto de maneira alguma.&lt;/p&gt;
+
+&lt;p&gt;Ok, agora que vimos como funciona uma IIFE, vamos entender sua sintaxe.&lt;/p&gt;
+
+&lt;h3&gt;Sintaxe da IIFE&lt;/h3&gt;
+
+&lt;p&gt;Vamos analisar essa estrutura de parênteses.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(...)();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;É confuso tentar entender a sintaxe de uma IIFE que possui parênteses com comportamentos tão diferentes. Por isso, vamos prosseguir devagar.&lt;/p&gt;
+
+&lt;p&gt;Sabemos que podemos definir uma função dessa maneira &lt;code&gt;function doSomething() { /* codigo */ }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Até aqui está lindo, mas e se eu colocar o conjunto de parênteses &lt;code&gt;()&lt;/code&gt; para invocar a função enquanto definimos, aí temos a função imediata, certo?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// SyntaxError: Unexpected token )&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Agora com função anônima&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// SyntaxError: Unexpected token (&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Errado! Como você pode ver, se tentamos invocar uma função enquanto definimos temos um erro.&lt;/p&gt;
+
+&lt;p&gt;De acordo com a norma do &lt;strong&gt;ExpressionStatement&lt;/strong&gt; (estado de expressão), não podemos começar com a keyword &lt;code&gt;function&lt;/code&gt;, pois quando usada em escopo global ou dentro de outra função, temos um estado de declaração de uma função (&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function&quot;&gt;Function Declaration&lt;/a&gt;). Portanto se tentarmos definir uma IIFE da maneira mostrada acima (iniciando com a keyword &lt;code&gt;function&lt;/code&gt;), estaremos lidando com declaração e o que precisamos é de uma expressão (&lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function&quot;&gt;Function Expression&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;No nosso exemplo, se por um lado o parser identifica o keyword &lt;code&gt;function&lt;/code&gt; como uma declaração, por outro ele reconhece o parênteses &lt;code&gt;()&lt;/code&gt; como um grupo de operadores e quando utilizamos sem uma expressão dentro temos um erro.&lt;/p&gt;
+
+&lt;p&gt;Mas se transformarmos uma função em &lt;strong&gt;Function Expression&lt;/strong&gt; e em seguida um conjunto de parênteses esses mesmos parênteses se torna uma invocação de uma função onde podemos passar parâmetros sem problemas, tendo outro comportamento. Como fazer uma function se tornar uma expressão? Apenas inserimos ela dentro de um grupo de operadores.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Agora com função anônima&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// undefined&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Utilizando parâmetros:&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//Função imediata com parâmetro&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Agora com função anônima&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4&gt;Outras maneiras:&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}());&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Método de Douglas Crockford&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Em alguns casos o parser já espera uma &lt;strong&gt;Function Expression&lt;/strong&gt;, então, não precisamos colocar o grupo de operadores.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;done&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Sem o grupo de operadores&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Podemos também definir usando o construtor &lt;code&gt;new&lt;/code&gt; , mas é menos performático que os outros métodos, eu não recomendaria essa opção.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Use parênteses se tiver argumentos.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Economizamos um byte transformando para Function Expression sem usar o grupo de operadores e sim com operadores unários.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* codigo */&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Para ir mais além, segue algumas referências:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://benalman.com/news/2010/11/immediately-invoked-function-expression/#iife&quot;&gt;IIFE&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://dmitrysoshnikov.com/ecmascript/chapter-5-functions/#question-about-surrounding-parentheses&quot;&gt;Question about surroundding parentheses&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.bryanbraun.com/2014/11/27/every-possible-way-to-define-a-javascript-function&quot;&gt;Every possible way to definea javascript function&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Espero ter ajudado! Dúvidas, sugestões, críticas, só comentar logo abaixo.&lt;/p&gt;
 </content>
  </entry>
  
