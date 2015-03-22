@@ -4,13 +4,83 @@
  <title>Pedro Araujo</title>
  <link href="http://pedrotcaraujo.com/atom.xml" rel="self"/>
  <link href="http://pedrotcaraujo.com/"/>
- <updated>2014-12-01T18:28:27-02:00</updated>
+ <updated>2015-01-07T15:07:58-02:00</updated>
  <id>http://pedrotcaraujo.com</id>
  <author>
    <name>Pedro Araujo</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Como os navegadores funcionam</title>
+   <link href="http://pedrotcaraujo.com/2015/01/07/webpage-rendering/"/>
+   <updated>2015-01-07T15:07:55-02:00</updated>
+   <id>http://pedrotcaraujo.com/2015/01/07/webpage-rendering</id>
+   <content type="html">&lt;p&gt;Depois de uma série artigos falando sobre Javascript, hoje gostaria de falar um pouco sobre como os navegadores renderizam uma página web e mostrar alguns princípios da renderização, repaint, reflow e como os browsers optimizam esse processo.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Nesse artigo, pretendo não dar muitos detalhes, mas caso você tenha interesse em ir além, a Israelita, Tali Garsiel, fez uma pesquisa bastante aprofundada sobre o assunto, e você pode ver nesse link &lt;a href=&quot;http://taligarsiel.com/Projects/howbrowserswork1.htm&quot;&gt;&amp;quot;How browsers work: Behind the scenes of modern web browsers&amp;quot;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Entender como uma página é renderizada é fundamental, pois possibilita que os desenvolvedores tomem decisões corretas e garante respostas de muitas questões sobre as melhores práticas de desenvolvimento.&lt;/p&gt;
+
+&lt;p&gt;Cada engine dos navegadores funciona de forma diferente e isso requer um estudo especifico de cada uma delas. Porém, vou listar aqui as principais ações de quando a página está sendo renderizada.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;DOM:&lt;/strong&gt; A engine de renderização irá parsear o HTML localizado no servidor e transformar suas tags em nós do DOM (Document Object Model) em uma tree chamada de &amp;quot;content tree&amp;quot;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;CSSOM:&lt;/strong&gt; Os estilos são carregados e parseados, formando o CSSOM (CSS Object Model).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Render tree:&lt;/strong&gt; A união do DOM com o CSSOM, é criada uma nova tree chamada de &amp;quot;render tree&amp;quot;. Que é uma série de objetos para serem renderizados. Render tree contém toda a estrutura do DOM, porém sem os elementos invisíveis (Tag &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; ou elementos que possuem &lt;code&gt;display:none;&lt;/code&gt;).&lt;br&gt;
+ATENÇÃO: elementos com &lt;code&gt;visibility: hidden;&lt;/code&gt; que ao contrário do &lt;code&gt;display:none;&lt;/code&gt; está no render tree.&lt;br&gt;
+O render tree é a representação visual do DOM, cada objeto a ser renderizado possui seu objeto do DOM correspondente, junto com seus atributos visuais, como cores, dimensões e vem na ordem correta para ser exibida na tela.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Layout (flow):&lt;/strong&gt; O render tree é o suficiente para começar a calcular as coordenadas e posicionar os elementos na tela, esse processo chamamos de &amp;quot;layout&amp;quot;. O browser utiliza o método &amp;quot;flow&amp;quot; nesse passo, que é utilizado somente uma vez para todos os elementos, ao contrario das tabelas que exigem sua utilização mais de uma vez.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Painting:&lt;/strong&gt; Por final, temos o processo &amp;quot;painting&amp;quot;, o render tree irá passar por cada objeto e irá mostrar na tela.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;reflow/repaint&lt;/h3&gt;
+
+&lt;p&gt;Quando a página está sendo renderizada sabemos que o &lt;strong&gt;layout&lt;/strong&gt; e o &lt;strong&gt;painting&lt;/strong&gt; é executado pelo menos uma única vez (exceto se você está renderizando uma página em branco). Porém na interação do usuario com a página, scripts podem modificar o DOM e o CSSOM, e então alguns passos a cima podem ser repetidos.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;reflow:&lt;/strong&gt; Temos um reflow quando algum script modifica o tamanho ou posicionamento dos elementos na página.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;repaint:&lt;/strong&gt; Quando alterado estilos que não afetam o tamanho ou posicionamento dos elementos na página (&lt;code&gt;background-color: red&lt;/code&gt;), somente o repaint é disparado. &lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Exemplos reflow/repaint&lt;/h4&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;500px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow e repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;10px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow e repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// repaint&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;display&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;none&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow e repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;visibility&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;hidden&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// repaint&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Executar um reflow ou um repaint, é muito custoso para o browser, portanto ele evita esse processo sempre que pode, funcionando de forma inteligente.&lt;/p&gt;
+
+&lt;h3&gt;Optimizando a renderização&lt;/h3&gt;
+
+&lt;p&gt;Executando esse script, quantos reflows e repaints vamos ter no final?&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;10px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow e repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// repaint&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;margin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;10px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow e repaint&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Se sua resposta foi mais de 1 vez, você está errado. O browser para optimizar o processo e evitar varios reflows e repaints, guarda todas as instruções e executa tudo de uma só vez no final do script. Legal, não?&lt;/p&gt;
+
+&lt;p&gt;Caso seja necessário, você também pode forçar a execução de um reflow e repaint, apenas lendo a propriedade. Veja:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;style&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;10px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// reflow forçado&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;red&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;bodyStyle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;margin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;10px&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;No nosso exemplo a cima, temos 2 reflows sendo executado, pois forçamos sua execução quando lemos a propriedade &lt;code&gt;padding&lt;/code&gt; do &lt;code&gt;body&lt;/code&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Funções imediatas JavaScript (IIFE)</title>
