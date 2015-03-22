@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Como os navegadores funcionam &middot; Pedro Araujo
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/hyde.css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>
+        <a href="/">
+          Pedro Araujo
+        </a>
+      </h1>
+      <p class="lead">Coisas sobre o mundo web, carreira e um pouco de javascript</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Início</a>
+
+      
+
+      
+      
+        
+          
+        
+      
+        
+          
+            <a class="sidebar-nav-item" href="/about/">Sobre</a>
+          
+        
+      
+        
+      
+        
+          
+        
+      
+    </nav>
+
+    <p>&copy; 2015. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Como os navegadores funcionam</h1>
+  <span class="post-date">07 Jan 2015</span>
+  <p>Depois de uma série artigos falando sobre Javascript, hoje gostaria de falar um pouco sobre como os navegadores renderizam uma página web e mostrar alguns princípios da renderização, repaint, reflow e como os browsers optimizam esse processo.</p>
+
+<!--more-->
+
+<p>Nesse artigo, pretendo não dar muitos detalhes, mas caso você tenha interesse em ir além, a Israelita, Tali Garsiel, fez uma pesquisa bastante aprofundada sobre o assunto, e você pode ver nesse link <a href="http://taligarsiel.com/Projects/howbrowserswork1.htm">&quot;How browsers work: Behind the scenes of modern web browsers&quot;</a>.</p>
+
+<p>Entender como uma página é renderizada é fundamental, pois possibilita que os desenvolvedores tomem decisões corretas e garante respostas de muitas questões sobre as melhores práticas de desenvolvimento.</p>
+
+<p>Cada engine dos navegadores funciona de forma diferente e isso requer um estudo especifico de cada uma delas. Porém, vou listar aqui as principais ações de quando a página está sendo renderizada.</p>
+
+<ul>
+<li><p><strong>DOM:</strong> A engine de renderização irá parsear o HTML localizado no servidor e transformar suas tags em nós do DOM (Document Object Model) em uma tree chamada de &quot;content tree&quot;.</p></li>
+<li><p><strong>CSSOM:</strong> Os estilos são carregados e parseados, formando o CSSOM (CSS Object Model).</p></li>
+<li><p><strong>Render tree:</strong> A união do DOM com o CSSOM, é criada uma nova tree chamada de &quot;render tree&quot;. Que é uma série de objetos para serem renderizados. Render tree contém toda a estrutura do DOM, porém sem os elementos invisíveis (Tag <code>&lt;head&gt;</code> ou elementos que possuem <code>display:none;</code>).<br>
+ATENÇÃO: elementos com <code>visibility: hidden;</code> que ao contrário do <code>display:none;</code> está no render tree.<br>
+O render tree é a representação visual do DOM, cada objeto a ser renderizado possui seu objeto do DOM correspondente, junto com seus atributos visuais, como cores, dimensões e vem na ordem correta para ser exibida na tela.</p></li>
+<li><p><strong>Layout (flow):</strong> O render tree é o suficiente para começar a calcular as coordenadas e posicionar os elementos na tela, esse processo chamamos de &quot;layout&quot;. O browser utiliza o método &quot;flow&quot; nesse passo, que é utilizado somente uma vez para todos os elementos, ao contrario das tabelas que exigem sua utilização mais de uma vez.</p></li>
+<li><p><strong>Painting:</strong> Por final, temos o processo &quot;painting&quot;, o render tree irá passar por cada objeto e irá mostrar na tela.</p></li>
+</ul>
+
+<h3>reflow/repaint</h3>
+
+<p>Quando a página está sendo renderizada sabemos que o <strong>layout</strong> e o <strong>painting</strong> é executado pelo menos uma única vez (exceto se você está renderizando uma página em branco). Porém na interação do usuario com a página, scripts podem modificar o DOM e o CSSOM, e então alguns passos a cima podem ser repetidos.</p>
+
+<ul>
+<li><p><strong>reflow:</strong> Temos um reflow quando algum script modifica o tamanho ou posicionamento dos elementos na página.</p></li>
+<li><p><strong>repaint:</strong> Quando alterado estilos que não afetam o tamanho ou posicionamento dos elementos na página (<code>background-color: red</code>), somente o repaint é disparado. </p></li>
+</ul>
+
+<h4>Exemplos reflow/repaint</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">bodyStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s2">&quot;500px&quot;</span><span class="p">;</span> <span class="c1">// reflow e repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span><span class="p">;</span> <span class="c1">// reflow e repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span> <span class="c1">// repaint</span>
+
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span><span class="p">;</span> <span class="c1">// reflow e repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s2">&quot;hidden&quot;</span><span class="p">;</span> <span class="c1">// repaint</span>
+</code></pre></div>
+<p>Executar um reflow ou um repaint, é muito custoso para o browser, portanto ele evita esse processo sempre que pode, funcionando de forma inteligente.</p>
+
+<h3>Optimizando a renderização</h3>
+
+<p>Executando esse script, quantos reflows e repaints vamos ter no final?</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">bodyStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
+
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span><span class="p">;</span> <span class="c1">// reflow e repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span> <span class="c1">// repaint</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span><span class="p">;</span> <span class="c1">// reflow e repaint</span>
+</code></pre></div>
+<p>Se sua resposta foi mais de 1 vez, você está errado. O browser para optimizar o processo e evitar varios reflows e repaints, guarda todas as instruções e executa tudo de uma só vez no final do script. Legal, não?</p>
+
+<p>Caso seja necessário, você também pode forçar a execução de um reflow e repaint, apenas lendo a propriedade. Veja:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">bodyStyle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
+
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span><span class="p">;</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">padding</span><span class="p">;</span> <span class="c1">// reflow forçado</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
+<span class="nx">bodyStyle</span><span class="p">.</span><span class="nx">margin</span> <span class="o">=</span> <span class="s2">&quot;10px&quot;</span><span class="p">;</span>
+</code></pre></div>
+<p>No nosso exemplo a cima, temos 2 reflows sendo executado, pois forçamos sua execução quando lemos a propriedade <code>padding</code> do <code>body</code>.</p>
+
+</div>
+
+<div class="related">
+  <h2>Posts Relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2014/12/01/funcoes-imediatas-IIFE/">
+            Funções imediatas JavaScript (IIFE)
+            <small>01 Dec 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/28/auto-execucao-de-contrutores-javascript/">
+            Auto-execução de contrutores usando keyword 'new'
+            <small>28 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2014/10/14/composite-pattern-javascript/">
+            Explorando o Composite pattern JavaScript
+            <small>14 Oct 2014</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'pedrotcaraujo'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                    <div class="footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://yui.yahooapis.com/3.14.1/build/yui/yui.js"></script>
+        <script>
+          YUI().use('node-base', 'node-event-delegate', function (Y) {
+              // This just makes sure that the href="#" attached to the <a> elements
+              // don't scroll you back up the page.
+              Y.one('body').delegate('click', function (e) {
+                  e.preventDefault();
+              }, 'a[href="#"]');
+          });
+        </script>
+
+    </div>
+
+  </body>
+</html>
